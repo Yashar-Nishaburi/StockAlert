@@ -1,9 +1,6 @@
-import java.util.Arrays;
-import java.util.Random;
-
-public class QuickSort
+public class Sort
 {
-    public static int Partition(int low, int high, int[] a)//Partitioning function of QUICKSORT
+    public static int partition(int low, int high, int[] a)//Partitioning function of QUICKSORT
     {
         int pivot = a[low];
         int j = high;
@@ -29,17 +26,53 @@ public class QuickSort
         return j;
     }
 
-    public static void QuickSort(int low, int high, int[] a)//Recursive use of partitioning function
+    public static void quickSort(int low, int high, int[] a)//Recursive use of partitioning function
     {
         int j = 0;
         if(low < high) {
-            j = Partition(low, high, a);
-            QuickSort(low, j, a);
-            QuickSort(j + 1, high, a);
+            j = partition(low, high, a);
+            quickSort(low, j, a);
+            quickSort(j + 1, high, a);
+        }
+    }
+
+    public static int partitionPrice(int low, int high, product[] a)//Partitioning function of QUICKSORT
+    {
+        float pivot = a[low].getPrice();
+        int j = high;
+        int i = low;
+        while (i<j)
+        {
+            do{
+                i++;
+            }while (a[i].getPrice()<=pivot);
+            do{
+                j--;
+            }while (a[j].getPrice()> pivot);
+            if (i<j)
+            {
+                product temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+        product temp1 = a[low];
+        a[low] = a[j];
+        a[j] = temp1;
+        return j;
+    }
+
+    public static void quickSortPrice(int low, int high, product[] a)//Recursive use of partitioning function
+    {
+        int j = 0;
+        if(low < high) {
+            j = partitionPrice(low, high, a);
+            quickSortPrice(low, j, a);
+            quickSortPrice(j + 1, high, a);
         }
     }
     //Sample array to test Quicksort ----------------------------------------------------
-    /*
+/*
     public static void main(String[] args)
     {
 
@@ -59,7 +92,7 @@ public class QuickSort
             int low = 0;
             int high = TestArray.length - 1;
             long TimeStart = System.currentTimeMillis();
-            QuickSort(low, high, TestArray);
+            Sort(low, high, TestArray);
             //System.out.println(Arrays.toString(TestArray));
             long TimeEnd = System.currentTimeMillis();
             System.out.print("Time taken for algo: ");

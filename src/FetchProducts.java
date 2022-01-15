@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class FetchProducts
 {
-    public static Object[] ProductUpdate() throws IOException
+    public static Object[] productUpdate() throws IOException
     {
         product [] array;
         String line = "";
@@ -15,7 +15,7 @@ public class FetchProducts
         boolean statusTemp;
         float priceTemp;
 
-            BufferedReader brr = new BufferedReader(new FileReader(Main.path));
+            BufferedReader brr = new BufferedReader(new FileReader(Main.path+"products.csv"));
             while ((line = brr.readLine()) != null)   //total number of products
             {
                 total ++;
@@ -23,9 +23,10 @@ public class FetchProducts
 
             brr.close();
 
-            array = new product[total];
+            array = new product[total+1];
+            array[total] = new product("zzzzzzzzz", 999999999, false, "zzzzzzzzzz");
 
-            BufferedReader br = new BufferedReader(new FileReader(Main.path));
+            BufferedReader br = new BufferedReader(new FileReader(Main.path+"products.csv"));
             while ((line = br.readLine()) != null)   //returns a Boolean value
             {
                 String[] product = line.split(splitBy);    // use comma as separator

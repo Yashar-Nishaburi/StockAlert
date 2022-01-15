@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class NetTest
 {
-    public static boolean TestConnection()
+    public static boolean testConnection()
     {
         try
         {
@@ -23,14 +23,14 @@ public class NetTest
         }
     }
 
-    public static void AttemptConnection()
+    public static void attemptConnection()
     {
         boolean connectionStatus = false;
         int attempt = 1;
         while (connectionStatus == false && attempt <= 3)
         {
             System.out.println(">>Attempting internet connection - Attempt #:" + attempt);
-            connectionStatus = TestConnection();
+            connectionStatus = testConnection();
             if (connectionStatus == false)
             {
                 if (attempt != 3)

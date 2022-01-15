@@ -6,12 +6,12 @@ import java.io.FileWriter;
 
 public class CSVUpdate
 {
-    public static void Clear() throws IOException
+    public static void clear() throws IOException
     {
         new FileWriter(Main.path, false).close();
     }
 
-    public static void Update() throws Exception
+    public static void update() throws Exception
     {
 
         String[] callAndArgs = {"python3", "ScrapeAdorama.py"};
