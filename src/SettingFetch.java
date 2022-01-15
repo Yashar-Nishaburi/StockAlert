@@ -1,3 +1,4 @@
+/*
 import java.util.Timer; //code by: Nirmal- thInk beYond - Fetched from stack overflow
 import java.util.TimerTask;
 import java.io.*;
@@ -12,7 +13,7 @@ public class SettingFetch
             if( str.equals("") )
             {
                 System.out.println( "you input nothing. exit..." );
-                //System.exit( 0 );
+                System.exit( 0 );
             }
         }
     };
@@ -44,4 +45,4 @@ public class SettingFetch
         }
     }
 }
-
+*/
