@@ -2,55 +2,109 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class SettingGUI extends JFrame implements ActionListener
 {
-    //private JPanel panelRefresh;
+    private JPanel panelRefresh;
+    private JPanel panelSort;
     private JLabel labelRef;
     private JLabel labelSort;
+    private JLabel temp1;
+    private JLabel temp2;
+    private JLabel spacer;
     private JButton buttonRefresh;
     private JRadioButton sortDef;
     private JRadioButton sortPrice;
     private JRadioButton sortName;
+    private ButtonGroup sortGroup;
 
     public SettingGUI ()
     {
-        //panelRefresh = new JPanel();
-        labelRef = new JLabel("Click refresh to instantly apply settings", SwingConstants.CENTER);
-        labelSort = new JLabel("Sort By:", SwingConstants.CENTER);
+        panelRefresh = new JPanel();
+        panelSort = new JPanel();
+        labelRef = new JLabel("Force Refresh",JLabel.CENTER);
+        labelSort = new JLabel("Sort By:",JLabel.CENTER);
+        spacer = new JLabel("───────────────",JLabel.CENTER);
+        temp1 = new JLabel(" ");
+        temp2 = new JLabel(" ");
         buttonRefresh = new JButton("Refresh");
+        buttonRefresh.setFocusable(false);
         buttonRefresh.addActionListener(this);
 
         sortDef = new JRadioButton("Default");
+        sortDef.setFocusable(false);
         sortPrice = new JRadioButton("Price");
+        sortPrice.setFocusable(false);
         sortName = new JRadioButton("Name");
+        sortName.setFocusable(false);
 
-        //this.setResizable(false);
-        //this.add(panelRefresh);
-        this.add(labelSort);
-        this.add(sortDef);
-        this.add(sortPrice);
-        this.add(sortName);
-        //this.pack();
+        sortGroup = new ButtonGroup();
+        sortGroup.add(sortDef);
+        sortGroup.add(sortPrice);
+        sortGroup.add(sortName);
+
+        sortDef.addActionListener(this);
+        sortName.addActionListener(this);
+        sortPrice.addActionListener(this);
+
+
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("StockAlert - Settings");
-        this.setSize(250,600);
-        this.setLayout(new GridLayout(9,1));
+        this.setSize(300,250);
+        this.setLayout(null);
         this.setVisible(true);
-        this.add(buttonRefresh);
-        this.add(labelRef);
+        this.setResizable(false);
+        this.add(panelRefresh);
+        this.add(panelSort);
+        //this.getContentPane().setBackground(Color.darkGray);
+        //******************************************************************
+        //panelRefresh.setBackground(Color.gray);
+        panelRefresh.setBounds(40,130,210,90);
+        panelRefresh.setLayout(new GridLayout(4,1));
+        panelRefresh.add(spacer);
+        panelRefresh.add(temp1);
+        panelRefresh.add(labelRef);
+        panelRefresh.add(buttonRefresh);
         //panelRefresh.setBackground(Color.BLACK);
-        //panelRefresh.setBounds(10,470,260,100);
-        //panelRefresh.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        //panelRefresh.setLayout(new GridLayout(0, 1));
-        //panelRefresh.add(buttonRefresh);
-        //panelRefresh.add(label);
+        //panelRefresh.setBorder(BorderFactory.createBevelBorder(3));
+        //******************************************************************
+        panelSort.setBounds(40,80,210,50);
+        //panelSort.setBackground(Color.BLACK);
+        panelSort.setLayout(new GridLayout(2,3));
+        panelSort.add(temp1);
+        panelSort.add(labelSort);
+        panelSort.add(temp2);
+        panelSort.add(sortDef);
+        panelSort.add(sortPrice);
+        panelSort.add(sortName);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        if(e.getSource()==sortDef)
+        {
+            try
+            {
+                Config.write("SortBy","Default");
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }else if(e.getSource()==sortPrice)
+        {
+            try
+            {
+                Config.write("SortBy","Price");
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+
         if (e.getSource()==buttonRefresh)
         {
             Main.inputSupplied = true;

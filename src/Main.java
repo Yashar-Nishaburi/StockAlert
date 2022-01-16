@@ -17,7 +17,7 @@ public class Main
         product[] array = (product[]) FetchProducts.productUpdate();
         ArrayProcessing.sortArrayPrice(array);
         ArrayProcessing.printArray(array);
-/*
+
         new RepeatingTask(10000, new TaskInformation()
         {
             @Override
@@ -28,6 +28,7 @@ public class Main
                     //CSVUpdate.Clear();
                     //CSVUpdate.Update();
                     product[] array = (product[]) FetchProducts.productUpdate();
+                    ArrayProcessing.sortArrayPrice(array);
                     ArrayProcessing.printArray(array);
 
                 }catch(Exception e){
@@ -46,7 +47,5 @@ public class Main
                 return false;
             }
         }).start();
-*/
     }
-
 }
