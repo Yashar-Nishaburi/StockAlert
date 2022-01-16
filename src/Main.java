@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class Main
 {
-    public static Scanner scanner = new Scanner(System.in);
     public static boolean inputSupplied = false;
     public static String path = "C:\\Users\\Yashar\\IdeaProjects\\StockAlert\\src\\"; //Enter path of project folder - Products.csv and Config.cfg Must be in same folder as code
 
