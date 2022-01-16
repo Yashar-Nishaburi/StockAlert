@@ -10,15 +10,17 @@ public class Main
 
     public static void main(String[] args) throws Exception
     {
-        //NetTest.attemptConnection();
+        NetTest.attemptConnection();
 
         new SettingGUI();
 
         //CSVUpdate.clear();
         //CSVUpdate.update();
         product[] array = (product[]) FetchProducts.productUpdate();
-        ArrayProcessing.sortArrayPrice(array);
-        ArrayProcessing.printArray(array);
+        ArrayProcessing.displayProcessed(array);
+        //ArrayProcessing.printArray(array);
+        System.out.println("===============================================");
+        System.out.println("===============================================");
 
         new RepeatingTask(10000, new TaskInformation()
         {
@@ -30,8 +32,10 @@ public class Main
                     //CSVUpdate.Clear();
                     //CSVUpdate.Update();
                     product[] array = (product[]) FetchProducts.productUpdate();
-                    ArrayProcessing.sortArrayPrice(array);
-                    ArrayProcessing.printArray(array);
+                    ArrayProcessing.displayProcessed(array);
+                    //ArrayProcessing.printArray(array);
+                    System.out.println("===============================================");
+                    System.out.println("===============================================");
 
                 }catch(Exception e){
                     e.printStackTrace();
@@ -49,5 +53,6 @@ public class Main
                 return false;
             }
         }).start();
+
     }
 }

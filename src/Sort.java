@@ -71,6 +71,42 @@ public class Sort
             quickSortPrice(j + 1, high, a);
         }
     }
+
+    public static int partitionName(int low, int high, product[] a)//Partitioning function of QUICKSORT
+    {
+        String pivot = a[low].getName();
+        int j = high;
+        int i = low;
+        while (i<j)
+        {
+            do{
+                i++;
+            }while (((a[i].getName()).compareTo(pivot))<0);
+            do{
+                j--;
+            }while (((a[j].getName()).compareTo(pivot))>0);
+            if (i<j)
+            {
+                product temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+        product temp1 = a[low];
+        a[low] = a[j];
+        a[j] = temp1;
+        return j;
+    }
+
+    public static void quickSortName(int low, int high, product[] a)//Recursive use of partitioning function
+    {
+        int j = 0;
+        if(low < high) {
+            j = partitionName(low, high, a);
+            quickSortName(low, j, a);
+            quickSortName(j + 1, high, a);
+        }
+    }
     //Sample array to test Quicksort ----------------------------------------------------
 /*
     public static void main(String[] args)

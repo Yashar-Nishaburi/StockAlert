@@ -8,8 +8,10 @@ public class SettingGUI extends JFrame implements ActionListener
 {
     private JPanel panelRefresh;
     private JPanel panelSort;
+    private JPanel panelSearch;
     private JLabel labelRef;
     private JLabel labelSort;
+    private JLabel labelSearch;
     private JLabel temp1;
     private JLabel temp2;
     private JLabel spacer;
@@ -18,19 +20,26 @@ public class SettingGUI extends JFrame implements ActionListener
     private JRadioButton sortPrice;
     private JRadioButton sortName;
     private ButtonGroup sortGroup;
+    private JTextField searchField;
 
     public SettingGUI ()
     {
         panelRefresh = new JPanel();
         panelSort = new JPanel();
+        panelSearch = new JPanel();
+        searchField = new JTextField();
         labelRef = new JLabel("Force Refresh",JLabel.CENTER);
         labelSort = new JLabel("Sort By:",JLabel.CENTER);
-        spacer = new JLabel("───────────────",JLabel.CENTER);
+        labelSearch = new JLabel("Search For:",JLabel.CENTER);
+        spacer = new JLabel("──────────────────────────────",JLabel.CENTER);
         temp1 = new JLabel(" ");
         temp2 = new JLabel(" ");
         buttonRefresh = new JButton("Refresh");
         buttonRefresh.setFocusable(false);
         buttonRefresh.addActionListener(this);
+
+        searchField.setPreferredSize(new Dimension(200,20));
+        searchField.addActionListener(this);
 
         sortDef = new JRadioButton("Default");
         sortDef.setFocusable(false);
@@ -54,21 +63,23 @@ public class SettingGUI extends JFrame implements ActionListener
         this.setTitle("StockAlert - Settings");
         this.setSize(300,250);
         this.setLayout(null);
-        this.setVisible(true);
         this.setResizable(false);
+        this.add(panelSearch);
         this.add(panelRefresh);
         this.add(panelSort);
-        //this.getContentPane().setBackground(Color.darkGray);
+
         //******************************************************************
-        //panelRefresh.setBackground(Color.gray);
+        panelSearch.setBounds(40,20,210,50);
+        panelSearch.setLayout(new FlowLayout());
+        panelSearch.add(labelSearch);
+        panelSearch.add(searchField);
+        //******************************************************************
         panelRefresh.setBounds(40,130,210,90);
         panelRefresh.setLayout(new GridLayout(4,1));
         panelRefresh.add(spacer);
         panelRefresh.add(temp1);
         panelRefresh.add(labelRef);
         panelRefresh.add(buttonRefresh);
-        //panelRefresh.setBackground(Color.BLACK);
-        //panelRefresh.setBorder(BorderFactory.createBevelBorder(3));
         //******************************************************************
         panelSort.setBounds(40,80,210,50);
         //panelSort.setBackground(Color.BLACK);
@@ -80,11 +91,24 @@ public class SettingGUI extends JFrame implements ActionListener
         panelSort.add(sortPrice);
         panelSort.add(sortName);
 
+        this.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        if(e.getSource()==searchField)
+        {
+            try
+            {
+                Config.write("SearchFor",searchField.getText());
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+            searchField.setText("");
+        }
         if(e.getSource()==sortDef)
         {
             try
@@ -99,6 +123,15 @@ public class SettingGUI extends JFrame implements ActionListener
             try
             {
                 Config.write("SortBy","Price");
+            } catch (IOException ex)
+            {
+                ex.printStackTrace();
+            }
+        }else if(e.getSource()==sortName)
+        {
+            try
+            {
+                Config.write("SortBy","Name");
             } catch (IOException ex)
             {
                 ex.printStackTrace();
