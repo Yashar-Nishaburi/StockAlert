@@ -8,6 +8,14 @@ public class ArrayProcessing
         }
     }
 
+    public static void printArrayAlt(product[] a)
+    {
+        for(int i = 0; i < a.length; i++)
+        {
+            System.out.println(a[i] );
+        }
+    }
+
     public static void sortArray(product[] a) throws Exception
     {
         String setting = Config.read("SortBy");
