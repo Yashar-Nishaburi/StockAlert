@@ -27,4 +27,17 @@ class Search{
         }
         return array;
     }
+
+    static int searchWOCount(product[] arr, String x)
+    {
+
+        for (int i = 0; i < arr.length; i++)
+        {
+            if ((arr[i].getName().toLowerCase().contains(x.toLowerCase())))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 }

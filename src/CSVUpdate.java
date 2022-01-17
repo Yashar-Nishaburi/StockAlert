@@ -8,7 +8,7 @@ public class CSVUpdate
 {
     public static void clear() throws IOException
     {
-        new FileWriter(Main.path, false).close();
+        new FileWriter(Main.path + "products.csv", false).close();
     }
 
     public static void update() throws Exception
