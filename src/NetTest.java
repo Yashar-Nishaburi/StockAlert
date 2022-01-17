@@ -4,9 +4,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.concurrent.TimeUnit;
 
-public class NetTest
+public class NetTest //3. "Input Validation" - Checks for Users internet connection
 {
-    public static boolean testConnection()
+    public static boolean testConnection() //attempt connection to website.
     {
         try
         {
@@ -23,7 +23,7 @@ public class NetTest
         }
     }
 
-    public static void attemptConnection()
+    public static void attemptConnection() //4. Error messages - Shows an error msg with every unsuccessful attempt. Exists system after 3
     {
         boolean connectionStatus = false;
         int attempt = 1;

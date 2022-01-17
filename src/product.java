@@ -1,11 +1,11 @@
-public class product
+public class product // Class of each graphics card product
 {
-    private String name;
+    private String name; //8. Private attributes - Data hiding
     private float price;
     private boolean stock;
     private String link;
 
-    public product(String name, float price, boolean stock,String link)
+    public product(String name, float price, boolean stock, String link)
     {
         this.name = name;
         this.price = price;
@@ -13,6 +13,7 @@ public class product
         this.link = link;
     }
 
+    // 8. 9. 10. Getters setters and constructors - Reading and writing data to product object
     public String getName()
     {
         return name;
@@ -60,6 +61,7 @@ public class product
         return false;
     }
 
+    //11. toString - Used to display each product obj
     @Override
     public String toString()
     {

@@ -1,13 +1,14 @@
-public class Sort
-{
+public class Sort // 22. Sorting algorithms - QuickSort
+{//Partition and quickSort function are just proof of concept used for same functions which work with float and string below
     public static int partition(int low, int high, int[] a)//Partitioning function of QUICKSORT
     {
         int pivot = a[low];
         int j = high;
         int i = low;
-        while (i<j)
+        while (i < j)
         {
-            do{
+            do
+            {
                 i++;
             }while (a[i]<=pivot);
             do{
@@ -36,7 +37,7 @@ public class Sort
         }
     }
 
-    public static int partitionPrice(int low, int high, product[] a)//Partitioning function of QUICKSORT
+    public static int partitionPrice(int low, int high, product[] a)//Partitioning function with floats and array product input
     {
         float pivot = a[low].getPrice();
         int j = high;
@@ -72,7 +73,7 @@ public class Sort
         }
     }
 
-    public static int partitionName(int low, int high, product[] a)//Partitioning function of QUICKSORT
+    public static int partitionName(int low, int high, product[] a)//Partitioning function working with strings
     {
         String pivot = a[low].getName();
         int j = high;
@@ -107,7 +108,7 @@ public class Sort
             quickSortName(j + 1, high, a);
         }
     }
-    //Sample array to test Quicksort ----------------------------------------------------
+//Efficiency tester for OG quicksort algo. Simply uncomment and run.
 /*
     public static void main(String[] args)
     {

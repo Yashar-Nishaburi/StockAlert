@@ -1,4 +1,4 @@
-public class RepeatingTask extends Thread
+public class RepeatingTask extends Thread //12. Overloading - Extending Thread task. Overriding run()
 {
     private final int delay;
     private TaskInformation taskInfo;

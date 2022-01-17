@@ -69,11 +69,13 @@ public class SettingGUI extends JFrame implements ActionListener
         this.add(panelSort);
 
         //******************************************************************
+        //Initializing gui panel for search section
         panelSearch.setBounds(40,20,210,50);
         panelSearch.setLayout(new FlowLayout());
         panelSearch.add(labelSearch);
         panelSearch.add(searchField);
         //******************************************************************
+        //Initializing gui panel for refresh section
         panelRefresh.setBounds(40,130,210,90);
         panelRefresh.setLayout(new GridLayout(4,1));
         panelRefresh.add(spacer);
@@ -81,6 +83,7 @@ public class SettingGUI extends JFrame implements ActionListener
         panelRefresh.add(labelRef);
         panelRefresh.add(buttonRefresh);
         //******************************************************************
+        //Initializing gui panel for radio button menu
         panelSort.setBounds(40,80,210,50);
         //panelSort.setBackground(Color.BLACK);
         panelSort.setLayout(new GridLayout(2,3));
@@ -102,7 +105,7 @@ public class SettingGUI extends JFrame implements ActionListener
         {
             try
             {
-                Config.write("SearchFor",searchField.getText());
+                Config.write("SearchFor",searchField.getText()); // Write search field to config on enter
             } catch (IOException ex)
             {
                 ex.printStackTrace();
@@ -140,7 +143,11 @@ public class SettingGUI extends JFrame implements ActionListener
 
         if (e.getSource()==buttonRefresh)
         {
-            Main.inputSupplied = true;
+            Main.inputSupplied = true;//Exits RepeatingTask function on Button click
         }
     }
 }
+/*
+This section could also use quite a bit of improvement. The implementation of the gui is dirty (Null layout manager) and doesn't work well across OS/Res.
+The final actionPerformed function is once again bad practice. If/else spam :)
+ */

@@ -5,7 +5,7 @@ import java.util.Properties;
 
 public class Config
 {
-    public static String read(String a) throws Exception
+    public static String read(String a) throws Exception //Read function for config - Takes setting name and returns setting
     {
         String fetch;
         Properties prop = new Properties();
@@ -16,7 +16,7 @@ public class Config
         return fetch;
     }
 
-    public static void write(String key, String value) throws IOException
+    public static void write(String key, String value) throws IOException //Write function for config - Takes both setting name and new state of setting and writes it
     {
         Properties prop = new Properties();
         FileInputStream ip = new FileInputStream(Main.path + "config.properties");
