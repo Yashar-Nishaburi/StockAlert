@@ -10,6 +10,7 @@ public class Main
 {
     public static boolean inputSupplied = false; //While inputsupplied is false the repeating task function will run every 5 minutes on loop - if true, it auto forces out of loop and starts new 5 min counter
     public static String path = "C:\\Users\\Yashar\\IdeaProjects\\StockAlert\\src\\"; //Enter path of project folder - Products.csv and Config.cfg Must be in same folder as code
+    //Example file path already provided - Make sure the final "slash" is included both in mac and windows
     public static product[] updated = new product[5];//Array of recently updated products
     public static product [] array;//
 
