@@ -31,7 +31,7 @@ public class SettingGUI extends JFrame implements ActionListener
         labelRef = new JLabel("Force Refresh",JLabel.CENTER);
         labelSort = new JLabel("Sort By:",JLabel.CENTER);
         labelSearch = new JLabel("Search For:",JLabel.CENTER);
-        spacer = new JLabel("──────────────────────────────",JLabel.CENTER);
+        spacer = new JLabel("================",JLabel.CENTER);
         temp1 = new JLabel(" ");
         temp2 = new JLabel(" ");
         buttonRefresh = new JButton("Refresh");
