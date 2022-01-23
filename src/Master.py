@@ -3,7 +3,7 @@ from urllib.request import Request, urlopen
 import random
 import time
 
-filename = "../../../Desktop/src/products.csv"
+filename = "products.csv"
 f = open(filename, "a")
 
 dotCount = 1
