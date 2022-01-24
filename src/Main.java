@@ -14,7 +14,7 @@ public class Main
     //Example file path - Make sure the final "slash" is included both in mac and windows
     //OSX: /Users/yasharnishaburi/IdeaProjects/StockAlert/src/
     //WINDOWS: C:\Users\Yashar\IdeaProjects\StockAlert\src\
-    public static product[] updated = new product[5];//Array of recently updated products
+    public static productNew[] updated = new productNew[5];//Array of recently updated products
     public static product [] array;//
 
     public static void main(String[] args) throws Exception

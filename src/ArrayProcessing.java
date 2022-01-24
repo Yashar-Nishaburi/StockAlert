@@ -8,11 +8,11 @@ public class ArrayProcessing
         }
     }
 
-    public static void printArrayAlt(product[] a)//Normal print array function
+    public static void printArrayAlt(productNew[] a)//Normal print array function
     {
         for(int i = 0; i < a.length; i++)
         {
-            System.out.println(a[i] );
+            System.out.println(a[i]);
         }
     }
 

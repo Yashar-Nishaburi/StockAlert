@@ -36,10 +36,21 @@ public class SettingGUI extends JFrame implements ActionListener
         temp2 = new JLabel(" ");
         buttonRefresh = new JButton("Refresh");
         buttonRefresh.setFocusable(false);
-        buttonRefresh.addActionListener(this);
+        buttonRefresh.addActionListener(e -> {Main.inputSupplied = true;});
 
         searchField.setPreferredSize(new Dimension(200,20));
-        searchField.addActionListener(this);
+        searchField.addActionListener(e ->
+        {
+            try
+            {
+                Config.write("SearchFor",searchField.getText()); // Write search field to config on enter
+            } catch (IOException ex)
+            {
+                System.out.println(">> Failed to access cfg file");
+                ex.printStackTrace();
+            }
+            searchField.setText("");
+        });
 
         sortDef = new JRadioButton("Default");
         sortDef.setFocusable(false);
@@ -101,17 +112,6 @@ public class SettingGUI extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getSource()==searchField)
-        {
-            try
-            {
-                Config.write("SearchFor",searchField.getText()); // Write search field to config on enter
-            } catch (IOException ex)
-            {
-                ex.printStackTrace();
-            }
-            searchField.setText("");
-        }
         if(e.getSource()==sortDef)
         {
             try
@@ -134,16 +134,11 @@ public class SettingGUI extends JFrame implements ActionListener
         {
             try
             {
-                Config.write("SortBy","Name");
+                Config.write("SortBy", "Name");
             } catch (IOException ex)
             {
                 ex.printStackTrace();
             }
-        }
-
-        if (e.getSource()==buttonRefresh)
-        {
-            Main.inputSupplied = true;//Exits RepeatingTask function on Button click
         }
     }
 }

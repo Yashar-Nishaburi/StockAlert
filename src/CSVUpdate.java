@@ -15,6 +15,15 @@ public class CSVUpdate
     {//PITA - Very fussy to run Python code that takes long time to execute in Java
         String[] callAndArgs = {"python3", "Master.py"};
         Process p = Runtime.getRuntime().exec(callAndArgs);
+        /*
+        try
+        {
+            Process p = Runtime.getRuntime().exec(callAndArgs);
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+         */
         //Made buffers for Input and Errors as a form of debugging but product breaks when processes are commented out
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
         BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));

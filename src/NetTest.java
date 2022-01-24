@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -11,14 +12,17 @@ public class NetTest //3. "Input Validation" - Checks for Users internet connect
         try
         {
             URL url = new URL("https://www.adorama.com/l/Computers/Computer-Components/Video-and-Graphics-Cards");
-            URLConnection connection = url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             connection.connect();
+            int statusCode = connection.getResponseCode();
             return true;
         } catch (MalformedURLException e)
         {
+            e.printStackTrace();
             return false;
         } catch (IOException e)
         {
+            e.printStackTrace();
             return false;
         }
     }
