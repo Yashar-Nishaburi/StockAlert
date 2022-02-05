@@ -1,3 +1,5 @@
+import jdk.jfr.SettingControl;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -34,11 +36,16 @@ public class NetTest //3. "Input Validation" - Checks for Users internet connect
         while (connectionStatus == false && attempt <= 3)
         {
             System.out.println(">>Attempting internet connection - Attempt #:" + attempt);
+            Main.mainGui.labelStatus.append(">>Attempting internet connection - Attempt #:" + attempt + "\n");
+
             connectionStatus = testConnection();
             if (connectionStatus == false)
             {
                 if (attempt != 3)
+                {
                     System.out.println(">>Connection failed - retrying in 10 seconds");
+                    Main.mainGui.labelStatus.append(">>Connection failed - retrying in 10 seconds\n");
+                }
                 attempt ++;
                 try
                 {
@@ -52,11 +59,14 @@ public class NetTest //3. "Input Validation" - Checks for Users internet connect
             else
             {
                 System.out.println(">>Connection established");
+                Main.mainGui.labelStatus.append(">>Connection established\n");
                 return;
             }
         }
         System.out.println(">>Connection failed after 3 attempts - exiting program");
-        System.exit(0);
+        Main.mainGui.labelStatus.append(">>Connection failed after 3 attempts - exiting program\n");
+        //gui.dispose();
+        //System.exit(0);
     }
 
 }

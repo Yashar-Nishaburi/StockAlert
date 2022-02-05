@@ -21,6 +21,7 @@ public class CheckRestock
                     Main.updated[j]=Main.updated[j-1];
                 }
                 Main.updated[0]= new productNew(updated[i].getName(), updated[i].getPrice(), updated[i].isStock(), updated[i].getLink(), getDate());
+                Main.mainGui.labelStatus.append(">> ("+getDate()+") - New Restock: " + dated[temp]);
             }
         }
     }

@@ -10,18 +10,19 @@ public class Main
 {
     public static boolean inputSupplied = false; //While inputsupplied is false the repeating task function will run every 5 minutes on loop - if true, it auto forces out of loop and starts new 5 min counter
     ///Users/yasharnishaburi/IdeaProjects/StockAlert/src/
-    public static String path = "/Users/yasharnishaburi/IdeaProjects/StockAlert/src/"; //Enter path of project folder - Products.csv and Config.cfg Must be in same folder as code
+    public static String path = "C:\\Users\\Yashar\\IdeaProjects\\StockAlert\\src\\"; //Enter path of project folder - Products.csv and Config.cfg Must be in same folder as code
     //Example file path - Make sure the final "slash" is included both in mac and windows
     //OSX: /Users/yasharnishaburi/IdeaProjects/StockAlert/src/
     //WINDOWS: C:\Users\Yashar\IdeaProjects\StockAlert\src\
     public static productNew[] updated = new productNew[5];//Array of recently updated products
     public static product [] array;//
+    public static SettingGUI mainGui;
+
 
     public static void main(String[] args) throws Exception
     {
+        mainGui = new SettingGUI();
         NetTest.attemptConnection();
-
-        new SettingGUI();
 
         /*
         Initial update of the CSV witch fetching products
