@@ -4,10 +4,15 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 
 public class SettingGUI extends JFrame implements ActionListener
 {
+    //Debugpanel
+    private JPanel panelDebug;
+    private JCheckBox checkDebug;
     //TableRef
     public JLabel labelRecent;
     public JPanel panelRef2;
@@ -46,6 +51,9 @@ public class SettingGUI extends JFrame implements ActionListener
 
     public SettingGUI ()
     {
+        //Debug instance
+        panelDebug = new JPanel();
+        checkDebug = new JCheckBox("Enable Debug/Browse mode - Disables data scraping");
         //Refresh table instance
         labelRecent = new JLabel("Recently Restocked");
         panelRef2 = new JPanel();
@@ -118,7 +126,7 @@ public class SettingGUI extends JFrame implements ActionListener
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("StockAlert - Settings");
-        this.setSize(1275,550);
+        this.setSize(1275,590);
         //this.getContentPane().setBackground(Color.GRAY);
         System.out.println(this.getInsets());
         this.setLayout(null);
@@ -131,8 +139,26 @@ public class SettingGUI extends JFrame implements ActionListener
         this.add(panelItems);
         this.add(panelCurrentSettings);
         this.add(panelRef2);
+        this.add(panelDebug);
 
-        panelRef2.setBounds(560,310,685,190);
+        checkDebug.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == 1) {
+                    Main.debugMode = true;
+                } else {
+                    Main.debugMode = false;
+                }
+            }
+        });
+
+        panelDebug.setBounds(10,500,540,40);
+        panelDebug.setLayout(new FlowLayout());
+        panelDebug.setBorder(BorderFactory.createLineBorder(Color.black));
+        checkDebug.setFocusable(false);
+        panelDebug.add(checkDebug);
+        //panelDebug.setBackground(Color.BLACK);
+
+        panelRef2.setBounds(560,320,685,220);
         //panelRef2.setBackground(Color.BLACK);
         panelRef2.setLayout(new FlowLayout());
         modelRef.addColumn("Date & Time");
@@ -140,15 +166,16 @@ public class SettingGUI extends JFrame implements ActionListener
         modelRef.addColumn("Price");
         modelRef.addColumn("Stock");
         modelRef.addColumn("Link");
-        tableRef.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tableRef.getColumnModel().getColumn(1).setPreferredWidth(400);
+        tableRef.getColumnModel().getColumn(0).setPreferredWidth(160);
+        tableRef.getColumnModel().getColumn(1).setPreferredWidth(320);
         tableRef.getColumnModel().getColumn(2).setPreferredWidth(50);
         tableRef.getColumnModel().getColumn(3).setPreferredWidth(50);
         tableRef.getColumnModel().getColumn(4).setPreferredWidth(100);
         JScrollPane scrollPaneTableRef = new JScrollPane(tableRef);
-        scrollPaneTableRef.setPreferredSize(new Dimension(680, 160));
+        scrollPaneTableRef.setPreferredSize(new Dimension(680, 200));
         scrollPaneTableRef.getViewport().setBackground(Color.BLACK);
         panelRef2.add(labelRecent);
+        //panelRef2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panelRef2.add(scrollPaneTableRef);
 
 
@@ -176,12 +203,12 @@ public class SettingGUI extends JFrame implements ActionListener
         tableAll.getColumnModel().getColumn(2).setPreferredWidth(50);
         tableAll.getColumnModel().getColumn(3).setPreferredWidth(100);
 
-        panelItems.setBounds(560,30,685,275);
+        panelItems.setBounds(560,30,685,270);
         //panelItems.setBackground(Color.BLACK);
         panelItems.setLayout(new FlowLayout());
         //panelItems.add(tableAll);
         JScrollPane scrollPaneTable = new JScrollPane(tableAll);
-        scrollPaneTable.setPreferredSize(new Dimension(680, 270));
+        scrollPaneTable.setPreferredSize(new Dimension(680, 265));
         scrollPaneTable.getViewport().setBackground(Color.BLACK);
         panelItems.add(scrollPaneTable);
 
@@ -218,7 +245,7 @@ public class SettingGUI extends JFrame implements ActionListener
         labelStatus.setEditable(false);
         labelStatus.setOpaque(false);
         panelStatus.setBounds(10,320,540,180);
-        panelStatus.setBackground(Color.BLACK);
+        //panelStatus.setBackground(Color.BLACK);
         panelStatus.add(scrollPane);
         //******************************************************************
         //Initializing gui panel for search section
