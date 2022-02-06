@@ -31,9 +31,9 @@ public class Main
         SINCE THESE DONT WORK TOO WELL THE CSV FILE IS ALREADY FULL OF PRE-SCRAPED PRODUCTS JUST AS PROOF OF CONCEPT
         To test the restock alert functionality - Change a product from "Out of stock" to "In stock" in the csv. (Case sensitive)
          */
-        CSVUpdate.clear();
-        CSVUpdate.update();
-        Thread.sleep(5000); //This is needed - Once again python and java integration being annoying. Just safe measure to let py script fully run
+        //CSVUpdate.clear();
+        //CSVUpdate.update();
+        //Thread.sleep(5000); //This is needed - Once again python and java integration being annoying. Just safe measure to let py script fully run
         array = (product[]) FetchProducts.productUpdate();//Fetches products from csv.
         ArrayProcessing.displayProcessed(array);//Prints the products according to the fetched csg settings
         //ArrayProcessing.printArray(array);
@@ -48,10 +48,10 @@ public class Main
             {
                 try
                 {//These should also be uncommented for the products to be rescraped after each setting change
-                    mainGui.labelStatus.append(">>(" + CheckRestock.getDate() + ")" +"Updating Stocks");
-                    CSVUpdate.clear();
-                    CSVUpdate.update();
-                    Thread.sleep(5000);
+                    mainGui.labelStatus.append(">>(" + CheckRestock.getDate() + ")" +" - Updating Stocks\n");
+                    //CSVUpdate.clear();
+                    //CSVUpdate.update();
+                    //Thread.sleep(5000);
                     product[] temp = array;
                     array = (product[]) FetchProducts.productUpdate();
                     ArrayProcessing.displayProcessed(array);

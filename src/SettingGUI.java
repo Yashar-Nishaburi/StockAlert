@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,20 +8,36 @@ import java.io.IOException;
 
 public class SettingGUI extends JFrame implements ActionListener
 {
-    public JPanel panelStatus;
-    public JTextArea labelStatus;
-    private JPanel panelRefresh;
-    private JPanel panelSort;
+    //TableRef
+    public JLabel labelRecent;
+    public JPanel panelRef2;
+    public static DefaultTableModel modelRef;
+    public JTable tableRef;
+    //TableAll
+    public static DefaultTableModel modelAll;
+    public JTable tableAll;
+    private JPanel panelCurrentSettings;
+    private JLabel labelCurrentSearch;
+    private JLabel labelCurrentSort;
+    public JPanel panelItems;
+    //Search
     private JPanel panelSearch;
-    private JPanel panelLogo;
-    private JTextArea labelLogo;
-    private JLabel labelRef;
-    private JLabel labelSort;
     private JLabel labelSearch;
+    private JLabel spacer;
+    //Logs
+    private JPanel panelLogo;
+    public JTextArea labelStatus;
+    public JPanel panelStatus;
+    private JTextArea labelLogo;
+    //Refresh
+    private JPanel panelRefresh;
+    private JLabel labelRef;
+    private JButton buttonRefresh;
+    //Sorting
     private JLabel temp1;
     private JLabel temp2;
-    private JLabel spacer;
-    private JButton buttonRefresh;
+    private JLabel labelSort;
+    private JPanel panelSort;
     private JRadioButton sortDef;
     private JRadioButton sortPrice;
     private JRadioButton sortName;
@@ -29,13 +46,27 @@ public class SettingGUI extends JFrame implements ActionListener
 
     public SettingGUI ()
     {
+        //Refresh table instance
+        labelRecent = new JLabel("Recently Restocked");
+        panelRef2 = new JPanel();
+        modelRef = new DefaultTableModel();
+        tableRef = new JTable(modelRef);
+        //Item table instance
+        modelAll = new DefaultTableModel();
+        tableAll = new JTable(modelAll);
+        //Current settings instance
+        panelCurrentSettings = new JPanel();
+        labelCurrentSearch = new JLabel();
+        labelCurrentSort = new JLabel();
         panelStatus = new JPanel();
+        panelItems = new JPanel();
         panelRefresh = new JPanel();
         panelSort = new JPanel();
         panelSearch = new JPanel();
         panelLogo = new JPanel();
         labelLogo = new JTextArea();
         searchField = new JTextField();
+
         labelRef = new JLabel("Force Refresh",JLabel.CENTER);
         labelSort = new JLabel("Sort By:",JLabel.CENTER);
         labelSearch = new JLabel("Search For:",JLabel.CENTER);
@@ -44,7 +75,11 @@ public class SettingGUI extends JFrame implements ActionListener
         temp2 = new JLabel(" ");
         buttonRefresh = new JButton("Refresh");
         buttonRefresh.setFocusable(false);
-        buttonRefresh.addActionListener(e -> {Main.inputSupplied = true;});
+        buttonRefresh.addActionListener(e ->
+        {
+            Main.inputSupplied = true;
+            modelAll.setRowCount(0);
+        });
 
         searchField.setPreferredSize(new Dimension(200,20));
         searchField.addActionListener(e ->
@@ -52,6 +87,7 @@ public class SettingGUI extends JFrame implements ActionListener
             try
             {
                 Config.write("SearchFor",searchField.getText()); // Write search field to config on enter
+                labelCurrentSearch.setText("Current Sort settings: " + searchField.getText());
             } catch (IOException ex)
             {
                 System.out.println(">> Failed to access cfg file");
@@ -80,10 +116,9 @@ public class SettingGUI extends JFrame implements ActionListener
         sortPrice.addActionListener(this);
 
 
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("StockAlert - Settings");
-        this.setSize(575,550);
+        this.setSize(1275,550);
         //this.getContentPane().setBackground(Color.GRAY);
         System.out.println(this.getInsets());
         this.setLayout(null);
@@ -93,6 +128,62 @@ public class SettingGUI extends JFrame implements ActionListener
         this.add(panelSort);
         this.add(panelLogo);
         this.add(panelStatus);
+        this.add(panelItems);
+        this.add(panelCurrentSettings);
+        this.add(panelRef2);
+
+        panelRef2.setBounds(560,310,685,190);
+        //panelRef2.setBackground(Color.BLACK);
+        panelRef2.setLayout(new FlowLayout());
+        modelRef.addColumn("Date & Time");
+        modelRef.addColumn("Name");
+        modelRef.addColumn("Price");
+        modelRef.addColumn("Stock");
+        modelRef.addColumn("Link");
+        tableRef.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tableRef.getColumnModel().getColumn(1).setPreferredWidth(400);
+        tableRef.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tableRef.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tableRef.getColumnModel().getColumn(4).setPreferredWidth(100);
+        JScrollPane scrollPaneTableRef = new JScrollPane(tableRef);
+        scrollPaneTableRef.setPreferredSize(new Dimension(680, 160));
+        scrollPaneTableRef.getViewport().setBackground(Color.BLACK);
+        panelRef2.add(labelRecent);
+        panelRef2.add(scrollPaneTableRef);
+
+
+        panelCurrentSettings.setBounds(560,10,685,20);
+        //panelCurrentSettings.setBackground(Color.BLACK);
+        panelCurrentSettings.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panelCurrentSettings.setLayout(new GridLayout(1,2));
+        try
+        {
+            labelCurrentSearch.setText("Current Search settings:" + Config.read("SearchFor"));
+            labelCurrentSort.setText("Current Sort settings:" + Config.read("SortBy"));
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        panelCurrentSettings.add(labelCurrentSearch);
+        panelCurrentSettings.add(labelCurrentSort);
+
+        modelAll.addColumn("Name");
+        modelAll.addColumn("Price");
+        modelAll.addColumn("Stock");
+        modelAll.addColumn("Link");
+        tableAll.getColumnModel().getColumn(0).setPreferredWidth(480);
+        tableAll.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tableAll.getColumnModel().getColumn(2).setPreferredWidth(50);
+        tableAll.getColumnModel().getColumn(3).setPreferredWidth(100);
+
+        panelItems.setBounds(560,30,685,275);
+        //panelItems.setBackground(Color.BLACK);
+        panelItems.setLayout(new FlowLayout());
+        //panelItems.add(tableAll);
+        JScrollPane scrollPaneTable = new JScrollPane(tableAll);
+        scrollPaneTable.setPreferredSize(new Dimension(680, 270));
+        scrollPaneTable.getViewport().setBackground(Color.BLACK);
+        panelItems.add(scrollPaneTable);
 
         labelLogo.setFont(new Font(Font.MONOSPACED,Font.BOLD, 16));
         labelLogo.setForeground(Color.GREEN);
@@ -170,6 +261,7 @@ public class SettingGUI extends JFrame implements ActionListener
             try
             {
                 Config.write("SortBy","Default");
+                labelCurrentSort.setText("Current Sort settings: Default");
             } catch (IOException ex)
             {
                 ex.printStackTrace();
@@ -179,6 +271,7 @@ public class SettingGUI extends JFrame implements ActionListener
             try
             {
                 Config.write("SortBy","Price");
+                labelCurrentSort.setText("Current Sort settings: Price");
             } catch (IOException ex)
             {
                 ex.printStackTrace();
@@ -188,6 +281,7 @@ public class SettingGUI extends JFrame implements ActionListener
             try
             {
                 Config.write("SortBy", "Name");
+                labelCurrentSort.setText("Current Sort settings: Name");
             } catch (IOException ex)
             {
                 ex.printStackTrace();

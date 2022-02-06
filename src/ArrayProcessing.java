@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class ArrayProcessing
 {
     public static void printArray(product[] a)//Prints product array except last index (Used as "Infinity" for quicksort)
@@ -5,6 +7,7 @@ public class ArrayProcessing
         for (int i = 0; i < a.length - 1; i++)//19. Data structure traversal
         {
             System.out.println(a[i]);
+            SettingGUI.modelAll.addRow(new Object[]{a[i].getName(), a[i].getPrice(),a[i].isStock(), a[i].getLink()});
         }
     }
 

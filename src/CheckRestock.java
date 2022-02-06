@@ -15,13 +15,14 @@ public class CheckRestock
             temp = Search.binarySearch( dated, updated[i].getName());
             if ((!dated[temp].isStock()) && (updated[i].isStock())) //is it in stock now whilst previously out of stock
             {
-                Audio.playClip();
                 for (int j = 4; j>0; j--)//Updating list of newly restocked products
                 {
                     Main.updated[j]=Main.updated[j-1];
                 }
                 Main.updated[0]= new productNew(updated[i].getName(), updated[i].getPrice(), updated[i].isStock(), updated[i].getLink(), getDate());
-                Main.mainGui.labelStatus.append(">> ("+getDate()+") - New Restock: " + dated[temp]);
+                SettingGUI.modelRef.addRow(new Object[]{getDate(), updated[i].getName(), updated[i].getPrice(),updated[i].isStock(), updated[i].getLink()});
+                Main.mainGui.labelStatus.append(">> ("+getDate()+") - New Restock: " + dated[temp] + "\n");
+                Audio.playClip();
             }
         }
     }
