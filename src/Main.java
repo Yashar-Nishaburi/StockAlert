@@ -48,6 +48,7 @@ public class Main
             {
                 try
                 {//These should also be uncommented for the products to be rescraped after each setting change
+                    mainGui.labelStatus.append(">>(" + CheckRestock.getDate() + ")" +"Updating Stocks");
                     CSVUpdate.clear();
                     CSVUpdate.update();
                     Thread.sleep(5000);

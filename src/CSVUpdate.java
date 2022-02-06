@@ -31,13 +31,13 @@ public class CSVUpdate
         String s;
         while ((s = stdInput.readLine()) != null) {
             System.out.println(s);
-            Main.mainGui.labelStatus.append("-Python Output:" + s);
+            Main.mainGui.labelStatus.append("-Python Output:" + s + "\n");
 
         }
 
         while ((s = stdError.readLine()) != null) {
             System.out.println(s);//For now, it simply prints out the errors thrown by the Python script - Dunno how to deal with the errors
-            Main.mainGui.labelStatus.append("-Python Error:" + s);
+            Main.mainGui.labelStatus.append("-Python Error:" + s + "\n");
         }
     }
 }
